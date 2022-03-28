@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import  com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -40,21 +40,26 @@ public class User {
     private String password;
     @Lob
     private String avatar;
+    private String position;
+    private boolean status;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+
     Set<Role> roles = new HashSet<>();
 
     public User() {
     }
 
-    public User(Long id, String name, String username, String email, String password, String avatar, Set<Role> roles) {
+    public User(Long id, String name, String username, String email, String password, String avatar, String position, boolean status, Set<Role> roles) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.avatar = avatar;
+        this.position = position;
+        this.status = status;
         this.roles = roles;
     }
 
@@ -66,6 +71,22 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = encode;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Long getId() {

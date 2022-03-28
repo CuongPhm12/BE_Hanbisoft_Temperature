@@ -47,6 +47,7 @@ public class AuthController {
         if(userService.existsByEmail(signUpForm.getEmail())){
             return new ResponseEntity<>(new ResponMessage("no_email"), HttpStatus.OK);
         }
+
         User user = new User(signUpForm.getName(), signUpForm.getUsername(), signUpForm.getEmail(),passwordEncoder.encode(signUpForm.getPassword()));
         Set<String> strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
