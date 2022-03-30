@@ -17,6 +17,7 @@ public class Temperature {
     @ManyToOne
     @LazyCollection(LazyCollectionOption.FALSE)
     private User user;
+    private boolean status;
     public Temperature() {
     }
 
@@ -31,6 +32,22 @@ public class Temperature {
         this.user = user;
         this.temperature = temperature;
         this.datetime = datetime;
+    }
+
+    public Temperature(Long id, float temperature, Date datetime, User user, boolean status) {
+        this.id = id;
+        this.temperature = temperature;
+        this.datetime = datetime;
+        this.user = user;
+        this.status = status;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Long getId() {

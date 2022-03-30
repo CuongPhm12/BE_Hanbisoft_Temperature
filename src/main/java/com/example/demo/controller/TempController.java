@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,7 @@ public class TempController {
         Temperature  temperature1= new Temperature();
         temperature1.setTemperature(temperature.getTemperature());
         temperature1.setDatetime(temperature.getDatetime());
+        temperature1.setStatus(temperature.isStatus());
         temperature1.setUser(user);
         tempService.save(temperature1);
         return new ResponseEntity<>(new ResponMessage("yes"), HttpStatus.CREATED);
@@ -102,6 +104,16 @@ public class TempController {
     @GetMapping("/find-temp/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         return new ResponseEntity<>(tempService.findById(id).get(),HttpStatus.OK) ;
+    }
+    @GetMapping("/search-temp")
+    public ResponseEntity<List<Temperature>> search(@RequestParam(defaultValue = "") Date datetime,
+                                                   @RequestParam(defaultValue = "") String name) {
+
+        List<Temperature> temperatures = tempService.search(datetime,name);
+        if (temperatures.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(temperatures, HttpStatus.OK);
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,11 +37,18 @@ public class TempServiceImpl implements ITempService {
 
     @Override
     public Temperature save(Temperature temperature) {
+
+
         return tempRepository.save(temperature);
     }
 
     @Override
     public Optional<Temperature> findById(Long id) {
         return tempRepository.findById(id);
+    }
+
+    @Override
+    public List<Temperature> search(Date datetime, String name) {
+        return tempRepository.search(datetime,name);
     }
 }
