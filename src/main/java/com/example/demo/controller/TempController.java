@@ -105,16 +105,29 @@ public class TempController {
     public ResponseEntity<?> findById(@PathVariable Long id){
         return new ResponseEntity<>(tempService.findById(id).get(),HttpStatus.OK) ;
     }
+
+//    @GetMapping("/search-temp")
+//    public ResponseEntity<List<Temperature>> search(@RequestParam(defaultValue = "") Date datetime,
+//                                                    @RequestParam(defaultValue = "") String name) {
+//
+//        List<Temperature> temperatures = tempService.search(datetime,name);
+//        if (temperatures.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//        return new ResponseEntity<>(temperatures, HttpStatus.OK);
+//    }
     @GetMapping("/search-temp")
-    public ResponseEntity<List<Temperature>> search(@RequestParam(defaultValue = "") Date datetime,
+    public ResponseEntity<List<Temperature>> search(@RequestParam(defaultValue = "") Date fdate,
+                                                    @RequestParam(defaultValue = "") Date tdate,
                                                    @RequestParam(defaultValue = "") String name) {
 
-        List<Temperature> temperatures = tempService.search(datetime,name);
+        List<Temperature> temperatures = tempService.search(fdate,tdate,name);
         if (temperatures.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(temperatures, HttpStatus.OK);
     }
+
 
 
 }

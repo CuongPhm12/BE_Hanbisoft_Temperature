@@ -47,8 +47,19 @@ public class TempServiceImpl implements ITempService {
         return tempRepository.findById(id);
     }
 
+//    @Override
+//    public List<Temperature> search(Date datetime, String name) {
+//        return tempRepository.search(datetime,name);
+//    }
+
     @Override
-    public List<Temperature> search(Date datetime, String name) {
-        return tempRepository.search(datetime,name);
+    public List<Temperature> search(Date fdate, Date tdate, String name) {
+        return tempRepository.search(fdate,tdate,name);
     }
+
+
+//    @Override
+//    public List<Temperature> findAllByUser_Id(Long id) {
+//        return tempRepository.findAllByUser_Id(id);
+//    }
 }
