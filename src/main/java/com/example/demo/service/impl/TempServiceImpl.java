@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Temperature;
+import com.example.demo.model.User;
 import com.example.demo.repository.ITempRepository;
 import com.example.demo.service.IGeneralService;
 import com.example.demo.service.ITempService;
@@ -53,8 +54,28 @@ public class TempServiceImpl implements ITempService {
 //    }
 
     @Override
+    public List<Temperature> getAllTemp(int index) {
+        return tempRepository.getAllTemp(index);
+    }
+
+    @Override
+    public List<Temperature> findAllByUser(User user) {
+        return tempRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<Temperature> getAllTempNotPagination() {
+        return tempRepository.getAllTempNotPagination();
+    }
+
+    @Override
     public List<Temperature> search(Date fdate, Date tdate, String name) {
         return tempRepository.search(fdate,tdate,name);
+    }
+
+    @Override
+    public List<Temperature> searchByUser(Date fdate, Date tdate) {
+        return tempRepository.searchByUser(fdate,tdate);
     }
 
 

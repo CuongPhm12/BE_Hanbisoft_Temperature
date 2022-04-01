@@ -8,6 +8,7 @@ import com.example.demo.model.Role;
 import com.example.demo.model.RoleName;
 import com.example.demo.model.User;
 import com.example.demo.security.jwt.JwtProvider;
+import com.example.demo.security.userprincal.UserDetailService;
 import com.example.demo.security.userprincal.UserPrinciple;
 import com.example.demo.service.impl.RoleServiceImpl;
 import com.example.demo.service.impl.UserServiceImpl;
@@ -39,6 +40,8 @@ public class AuthController {
     AuthenticationManager authenticationManager;
     @Autowired
     JwtProvider jwtProvider;
+    @Autowired
+    private UserDetailService userDetailService;
     @PostMapping("/signup")
     public ResponseEntity<?> register(@Valid @RequestBody SignUpForm signUpForm){
         if(userService.existsByUsername(signUpForm.getUsername())){
@@ -80,5 +83,9 @@ public class AuthController {
         String token = jwtProvider.createToken(authentication);
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
         return ResponseEntity.ok(new JwtResponse(token, userPrinciple.getName(), userPrinciple.getAuthorities()));
+    }
+    @GetMapping("/currentUser")
+    public ResponseEntity<User> getCurrentUser(){
+        return new ResponseEntity<>(userDetailService.getCurrentUser(),HttpStatus.OK);
     }
 }

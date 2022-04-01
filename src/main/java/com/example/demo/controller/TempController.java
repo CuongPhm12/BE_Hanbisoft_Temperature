@@ -33,6 +33,25 @@ public class TempController {
     private TempServiceImpl tempService;
     @Autowired
     private UserDetailService userDetailService;
+    @GetMapping("/temps")
+    public ResponseEntity<List<Temperature>> getAllTemp(@RequestParam int index) {
+        List<Temperature> temperatures = tempService.getAllTemp(index);
+        if (temperatures.isEmpty()) {
+            return new ResponseEntity<List<Temperature>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Temperature>>(temperatures, HttpStatus.OK);
+    }
+    @GetMapping("/temperature-not-pagination")
+    public ResponseEntity<List<Temperature>> getAllTempNotPagination() {
+        List<Temperature> temperatures = tempService.getAllTempNotPagination();
+        if (temperatures.isEmpty()) {
+            return new ResponseEntity<List<Temperature>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Temperature>>(temperatures, HttpStatus.OK);
+    }
+
+
+
     @GetMapping("/list-temp")
 
     public ResponseEntity<?> pageTemp(@PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable pageable){
@@ -128,6 +147,24 @@ public class TempController {
         return new ResponseEntity<>(temperatures, HttpStatus.OK);
     }
 
+    @GetMapping("/search-temp-by-user")
+    public ResponseEntity<List<Temperature>> searchByUser(@RequestParam(defaultValue = "") Date fdate,
+                                                    @RequestParam(defaultValue = "") Date tdate) {
+
+        List<Temperature> temperatures = tempService.searchByUser(fdate,tdate);
+        if (temperatures.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(temperatures, HttpStatus.OK);
+    }
+
+
+@GetMapping("/search-user-temp")
+    public ResponseEntity<List<Temperature>> findAllByUser(){
+        User currentUser = userDetailService.getCurrentUser();
+        List<Temperature> listTempByUser = tempService.findAllByUser(currentUser);
+        return new ResponseEntity<>(listTempByUser,HttpStatus.OK);
+}
 
 
 }
