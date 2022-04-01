@@ -59,6 +59,11 @@ public class TempServiceImpl implements ITempService {
     }
 
     @Override
+    public List<Temperature> findAllByUserAndAndDatetimeAfterAndDatetimeBefore(User user, Date fdate, Date tdate) {
+        return tempRepository.findAllByUserAndAndDatetimeAfterAndDatetimeBefore(user, fdate, tdate);
+    }
+
+    @Override
     public List<Temperature> findAllByUser(User user) {
         return tempRepository.findAllByUser(user);
     }

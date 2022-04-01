@@ -41,6 +41,7 @@ public interface ITempRepository extends JpaRepository<Temperature,Long> {
     List<Temperature> searchByUser(@Param("fdate")Date fdate, @Param("tdate")Date tdate);
 
 List<Temperature> findAllByUser(User user);
+List<Temperature> findAllByUserAndAndDatetimeAfterAndDatetimeBefore(User user,Date fdate,Date tdate);
 
 //    @Query(value = "SELECT t.*,t.datetime as datetime,u.name as name "+
 //            "FROM temperature t left join users u on t.user_id = u.id " +

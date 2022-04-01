@@ -165,6 +165,13 @@ public class TempController {
         List<Temperature> listTempByUser = tempService.findAllByUser(currentUser);
         return new ResponseEntity<>(listTempByUser,HttpStatus.OK);
 }
+@GetMapping("/search-user-temp-fr-date-to-date")
+    public ResponseEntity<List<Temperature>> findAllByUserFrDateToDate(@RequestParam(defaultValue = "") Date fdate,
+                                                           @RequestParam(defaultValue = "") Date tdate){
+        User currentUser = userDetailService.getCurrentUser();
+        List<Temperature> listTempByUser = tempService.findAllByUserAndAndDatetimeAfterAndDatetimeBefore(currentUser,fdate,tdate);
+        return new ResponseEntity<>(listTempByUser,HttpStatus.OK);
+}
 
 
 }

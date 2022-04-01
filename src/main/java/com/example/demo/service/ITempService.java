@@ -9,11 +9,13 @@ import java.util.List;
 
 public interface ITempService extends IGeneralService<Temperature> {
     List<Temperature> getAllTemp(int index);
-    List<Temperature> findAllByUser(User user);
+
+    List<Temperature> findAllByUserAndAndDatetimeAfterAndDatetimeBefore(User user,Date fdate,Date tdate);
+
     List<Temperature> getAllTempNotPagination();
 //    List<Temperature> search(Date datetime, String name);
     List<Temperature> search(Date fdate,Date tdate,String name);
-
+    List<Temperature> findAllByUser(User user);
     List<Temperature> searchByUser(@Param("fdate")Date fdate, @Param("tdate")Date tdate);
 //    List<Temperature> findAllByUser_Id(Long id);
 }
