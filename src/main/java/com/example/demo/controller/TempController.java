@@ -102,6 +102,7 @@ public class TempController {
 
         temperature1.get().setDatetime(temperature1.get().getDatetime());
         temperature1.get().setTemperature(temperature.getTemperature());
+        temperature1.get().setStatus(temperature.isStatus());
 
         tempService.save(temperature1.get());
         return new ResponseEntity<>(new ResponMessage("Done Edit!"), HttpStatus.OK);
@@ -122,7 +123,11 @@ public class TempController {
     }
     @GetMapping("/find-temp/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
-        return new ResponseEntity<>(tempService.findById(id).get(),HttpStatus.OK) ;
+        Optional<Temperature> temperature = tempService.findById(id);
+        if(!temperature.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(temperature.get(),HttpStatus.OK) ;
     }
 
 //    @GetMapping("/search-temp")

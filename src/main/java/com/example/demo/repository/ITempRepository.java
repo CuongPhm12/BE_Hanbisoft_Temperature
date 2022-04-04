@@ -11,9 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ITempRepository extends JpaRepository<Temperature,Long> {
+//    @Query(value = "update temperature as t set t.datime =?1, t.temperature =?2, t.status=?3" +
+//            "where id =?4",nativeQuery = true)
+//    void editTemp(Date datetime, Float temperature, Boolean status, Long id);
+
     Page<Temperature> findAll(Pageable pageable);
     @Query(value = "SELECT t.*,t.datetime, u.name, u.position, t.temperature, u.status FROM temperature t left join users u " +
             "on t.user_id=u.id group by t.datetime limit ?1,5;",nativeQuery = true)
@@ -21,12 +26,6 @@ public interface ITempRepository extends JpaRepository<Temperature,Long> {
     @Query(value = "SELECT t.*,t.datetime, u.name, u.position, t.temperature, u.status FROM temperature t left join users u " +
             "on t.user_id=u.id group by t.datetime ;",nativeQuery = true)
     List<Temperature> getAllTempNotPagination();
-
-
-//    @Query(value = "SELECT t.*,t.datetime as datetime,u.name as name "+
-//            "FROM temperature t left join users u on t.user_id = u.id " +
-//            "where t.datetime = :date  and u.name   like concat('%',:name,'%') ", nativeQuery = true)
-//    List<Temperature> search(@Param("date")Date date , @Param("name") String name);
 
     @Query(value = "SELECT t.* ,t.datetime as datetime,u.name as name "+
             "FROM temperature t left join users u on t.user_id = u.id " +
@@ -43,13 +42,6 @@ public interface ITempRepository extends JpaRepository<Temperature,Long> {
 List<Temperature> findAllByUser(User user);
 List<Temperature> findAllByUserAndAndDatetimeAfterAndDatetimeBefore(User user,Date fdate,Date tdate);
 
-//    @Query(value = "SELECT t.*,t.datetime as datetime,u.name as name "+
-//            "FROM temperature t left join users u on t.user_id = u.id " +
-//            "where t.datetime = :date  and u.name   like concat('%',:name,'%') ", nativeQuery = true)
-//    List<Temperature> searchByUser(@Param("date")Date date , @Param("name") String name);
-//
-//    List<Temperature> findAllByUser_Id(Long id);
 
 
-//    Page<Temperature> findAllByUser_id(Long id);
 }

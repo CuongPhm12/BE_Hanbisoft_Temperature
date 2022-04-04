@@ -42,6 +42,12 @@ public class Temperature {
         this.status = status;
     }
 
+    public Temperature(float temperature, Date datetime, boolean status) {
+        this.temperature = temperature;
+        this.datetime = datetime;
+        this.status = status;
+    }
+
     public boolean isStatus() {
         return status;
     }

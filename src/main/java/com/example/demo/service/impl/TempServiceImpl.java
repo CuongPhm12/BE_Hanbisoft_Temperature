@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Temperature;
 import com.example.demo.model.User;
 import com.example.demo.repository.ITempRepository;
-import com.example.demo.service.IGeneralService;
 import com.example.demo.service.ITempService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +17,6 @@ import java.util.Optional;
 public class TempServiceImpl implements ITempService {
     @Autowired
     private ITempRepository tempRepository;
-
 
     @Override
     public List<Temperature> findAll() {
@@ -57,6 +55,12 @@ public class TempServiceImpl implements ITempService {
     public List<Temperature> getAllTemp(int index) {
         return tempRepository.getAllTemp(index);
     }
+
+
+//    @Override
+//    public void editTemp(Temperature temperature) {
+//        this.tempRepository.editTemp(temperature.getDatetime(),temperature.getTemperature(),temperature.isStatus(),temperature.getId());
+//    }
 
     @Override
     public List<Temperature> findAllByUserAndAndDatetimeAfterAndDatetimeBefore(User user, Date fdate, Date tdate) {
